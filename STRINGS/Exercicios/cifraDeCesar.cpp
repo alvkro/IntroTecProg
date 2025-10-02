@@ -4,7 +4,7 @@ using namespace std;
 
 char numLetra(int Num) {
     if (Num >= 1 && Num <= 26) {
-        return (Num + 96); // 64 é o número do A na tabela ASCII
+        return (Num + 96); // 97 é o número do a na tabela ASCII
     }
     else {
         return '?';
