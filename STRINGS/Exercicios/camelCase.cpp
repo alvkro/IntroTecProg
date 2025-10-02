@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <cctype>
 using namespace std;
 
 string lowerCase(string str) {
