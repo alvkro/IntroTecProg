@@ -12,12 +12,12 @@ char numLetra(int Num) {
 }
 
 int letraNum(char Letra) {
-    tolower(Letra);
+    Letra = tolower(Letra);
     if (Letra >= 'a' && Letra <= 'z') {
         return (Letra - 96);
     }
     else {
-        return '?';
+        return -1;
     }
 }
 
@@ -25,7 +25,7 @@ void criptCeasar(string str, int n) {
     for (int i = 0; i < str.size(); i++) {
         int num = letraNum(str[i]); // letra para numero *
         int x = num + n; // realiza a op. para obter o ASCII da letra da cifra *
-        x = ((x - 1) % 26) + 1;
+        x = ((x - 1) % 26) + 1; // loop para manter no alfabeto
         char letra = numLetra(x); // converte o numero para letra
         str[i] = letra; // substitui a letra antiga para a nova
     }
