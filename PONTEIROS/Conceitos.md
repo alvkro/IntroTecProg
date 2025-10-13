@@ -1,5 +1,3 @@
-## Conceitos principais (Relembrando):
-
 ## Variáveis:
 - Variáveis armazenam dentro delas valores relacionados com seu tipo, junto com um endereço criado na memória RAM, identificador (nome da variável) e o valor armazenado no endereço.
 
@@ -30,6 +28,7 @@ int main() {
 
 ## Variável Ponteiro:
 - Variável especial que armazena um endereço de memória (Carrega um endereço de memória de uma variável)
+- Pode ser desrreferenciada diversas vezes durante o código.
 
 ```cpp
 int *ponteiro1;
@@ -84,3 +83,48 @@ int main() {
     return 0;
 }
 ```
+
+# Referência:
+- É um apelido para variáveis (*int, float, objetos, structs, etc.*), apenas fazem referências a outras coisas.
+- *REFERÊNCIA NÃO É UMA VARIÁVEL!* Na memória RAM, o mesmo espaço que vai estar uma variável, vai estar o nome da referência.
+- Quando uma referência é criada, ele torna um nome alternativo para aquela variável.
+- O valor de endereço de uma variável-referência será igual ao endereço da variável que está sendo referenciada.
+- Importante: a referência só pode ser atribuido uma ÚNICA vez por declaração.
+
+Declaração de uma referência:
+```cpp
+int Numero { 2000 };
+int &ref = Numero;
+```
+# Passagem de argumentos para funções por referência utilizando referências:
+- Observe a função abaixo:
+```cpp
+void TrocaNumero(int Num1, int Num2) {
+    int temp = num1;
+    num2 = num1;
+    temp = num2;
+}
+```
+- Se você for tentar executar essa função no entry point do seu programa, ele vai mudar absolutamente NADA, isto é, não vai trocar os números como proposto. Isso ocorre por causa da execução de `TrocaNumero` e de `main()` ser local, por isso não há mudanças aparentes, após isso eles deixam de existir, chamamos isso de `Passagem de argumentos por valor`, onde apenas uma cópia é enviada para a função. Para mudar, é necessário referenciar os parâmetros dessa função com `&`:
+```cpp
+void TrocaNumero(int& Num1, int& Num2) {
+    int temp = num1;
+    num2 = num1;
+    temp = num2;
+}
+```
+- Ao identificar um certo parâmetro de uma função como uma referência, o argumento que for colocado para ser usado na função terá o mesmo endereço de memória, efetivamente "retornando" (está entre aspas porque `void` nunca irá retornar nada) o valor que você queria.
+
+# Passagem de argumentos para funções por referência utilizando ponteiros:
+- Agora, utilizaremos ponteiros:
+```cpp
+void TrocaNumero(int* Num1, int* Num2) {
+    int temp = *num1;
+    *num1 = *num2;
+    *num2 = temp;
+}
+
+// Na chamada da função:
+TrocaNumero(&Numero1, &Numero2);
+```
+- Neste exemplo, os dois parâmetros da função são ponteiros, sabendo disso, é esperado que recebam dois endereços de memória para ocorrer o desrreferenciamento do ponteiro. Chamamos isso de `Passagem de argumentos para funções por referência utilizando ponteiros`.
