@@ -2,11 +2,11 @@
 using namespace std;
 
 enum ValorCarta {
-    AS, C2, C3, C4, C5, C6, C7, C8, C9, C10, J, Q, K
+    AS = 1, C2, C3, C4, C5, C6, C7, C8, C9, C10, VALETE, DAMA, REI
 };
 
 enum NaipeCarta {
-    Ouro, Copas, Paus, Espadas
+    OUROS = 1, COPAS, ESPADAS, PAUS
 };
 
 struct Carta {
@@ -19,11 +19,12 @@ struct Cartas {
     Carta cartas[52];
 };
 
-bool temJogo (const Cartas &cartas) {
+bool temJogo(const Cartas &cartas) {
     for (int i = 0; i < cartas.quantidade - 2; i++) {
         Carta c1 = cartas.cartas[i];
         Carta c2 = cartas.cartas[i+1];
         Carta c3 = cartas.cartas[i+2];
+
         bool mesmoNaipe = c1.naipe == c2.naipe && c2.naipe == c3.naipe;
         bool ehSequencia = c1.valor+1 == c2.valor && c2.valor+1 == c3.valor;
 
@@ -34,16 +35,37 @@ bool temJogo (const Cartas &cartas) {
     return false;
 }
 
+NaipeCarta strToNaipe(string naipe) {
+    if (naipe == "OUROS") return OUROS;
+    if (naipe == "ESPADAS") return ESPADAS;
+    if (naipe == "COPAS") return COPAS;
+    if (naipe == "PAUS") return PAUS;
+    cerr << "Erro na entrada de dados!!!!!" << endl;
+    return OUROS;
+}
+
+ValorCarta strToValor(string valor) {
+    // ... a completar
+    return AS;
+}
+
+
 int main() {
-    Carta c = {AS, Ouro};
+    Cartas mao;
 
-    Carta Hand = {
-        3,
-        {
-            {Q, Espadas},
-            {C3, Espadas}
-        }
-    };
+    cin >> mao.quantidade;
+    for (int i = 0; i < mao.quantidade; i++) {
+        string naipe, valor;
+        cin >> naipe >> valor;
+        mao.cartas[i].naipe = strToNaipe(naipe);
+        mao.cartas[i].valor = strToValor(valor);
+    }
 
+    if (temJogo(mao)) {
+        cout << "Ganhei" << endl;
+    }
+    else {
+        cout << "Droga!" << endl;
+    }
 
 }
